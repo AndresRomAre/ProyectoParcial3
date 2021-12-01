@@ -1,0 +1,47 @@
+body {
+  background-color: white;
+}
+
+h1 {
+  margin-top: 0.5em;
+}
+
+.tipografia {
+  font-family: "museo-slab-500";
+  color: #1b1f2d;
+  font-size: 4em;
+}
+
+.logo {
+  height: 14em;
+  width: 14em;
+  padding-top: 0.5em;
+}
+
+.input-ingreso {
+  border-radius: 2em;
+  background-color: white;
+  outline-color: #707070;
+  color: #a4a4a4;
+  width: 18em;
+}
+
+.input-ingreso::placeholder {
+  color: #a4a4a4;
+  opacity: 1;
+}
+
+.btn-ingresar {
+  background-color: #e77a58 !important;
+  border-radius: 2em;
+  border: #e77a58 !important;
+  width: 18em;
+  height: 3em;
+}
+
+.letra-botones {
+  font-family: Arial;
+  font-weight: bold;
+  color: white;
+  font-size: 1.5em;
+}
