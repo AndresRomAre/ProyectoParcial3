@@ -2,6 +2,11 @@
 
 session_start();
 
+if (!isset($_SESSION['userId']) && empty($_SESSION['userId'])) {
+    header('Location: /index.php?message=Debes iniciar sesión');
+    exit();
+}
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);

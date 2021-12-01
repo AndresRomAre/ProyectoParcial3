@@ -1,5 +1,10 @@
 <?php
 
+if (!isset($_SESSION['userId']) && empty($_SESSION['userId'])) {
+  header('Location: /index.php?message=Debes iniciar sesión');
+  exit();
+}
+
 session_start();
 
 ini_set('display_errors', 1);
