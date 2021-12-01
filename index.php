@@ -29,12 +29,18 @@ session_start();
     <img src="assets/Imagenes/logo2.png" class="logo" alt="Logo">
   </div>
   <div class="container justify-content-center d-flex">
-    <form style="padding-top: 2em;">
+    <?php if (isset($_GET['message'])) : ?>
+      <div class="alert alert-info alert-dismissible fade show rounded-0 mb-0 shadow" role="alert">
+        <?= $_GET['message'] ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php endif; ?>
+    <form action="ingresar.php" method="POST" style="padding-top: 2em;">
       <div class="mb-3">
-        <input type="email" class="form-control input-ingreso" id="Email" placeholder="Email">
+        <input type="email" class="form-control input-ingreso" id="Email" name="email" placeholder="Email">
       </div>
       <div class="mb-3">
-        <input type="password" class="form-control input-ingreso" id="contrasenia" placeholder="Contraseña">
+        <input type="password" class="form-control input-ingreso" id="contrasenia" name="pass" placeholder="Contraseña">
       </div>
       <div>
         <button type="submit" class="btn btn-primary btn-ingresar">
