@@ -50,13 +50,12 @@ session_start();
         </button>
       </div>
       <div>
-        <button class="btn btn-primary btn-crear">
+        <a href="crearCuenta.php" class="btn btn-primary btn-crear">
           <span class="letra-botones">
-            <a href="crearCuenta.php">
-              Crear cuenta
-            </a>
+            Crear cuenta
           </span>
-        </button>
+        </a>
+
       </div>
 
     </form>

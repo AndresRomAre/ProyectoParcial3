@@ -18,13 +18,13 @@ error_reporting(E_ALL);
 
 require_once('connection.php');
 
-$query = 'SELECT u.id as usuarioId, u.email, u.password, u.first_name, u.last_name, u.role';
-$query .= 'FROM users as u';
+$query = 'SELECT id, email, password, first_name, last_name, role ';
+$query .= 'FROM users ';
 $search = '';
 
 if (isset($_GET['id'])) {
     $search = $_GET['id'];
-    $query .= "WHERE usuarioId = ?";
+    $query .= "WHERE id = ?";
 }
 
 $sql = db()->prepare($query);
@@ -61,12 +61,12 @@ $result = $sql->fetch(PDO::FETCH_ASSOC);
             <div class="align-items-center d-flex flex-column h-100">
                 <div class="card" style="width: 23em; margin-top: 2%; margin-bottom: 2%;">
                     <div class="card-body">
-                        <form action="reports-edit.php" enctype="multipart/form-data" method="POST">
+                        <form action="usuarios-edit.php" enctype="multipart/form-data" method="POST">
                             <div class="mb-3">
                                 <label>
                                     Id usuario*
                                 </label>
-                                <input id="idUsuarioInput" name="idUsuarioInput" type="text" class="form-control" readonly value="<?= $result['usuarioId'] ?>">
+                                <input id="idUsuarioInput" name="idUsuarioInput" type="text" class="form-control" readonly value="<?= $result['id'] ?>">
                             </div>
 
                             <div class="mb-3">

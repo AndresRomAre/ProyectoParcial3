@@ -30,18 +30,18 @@ session_start();
     <img src="assets/Imagenes/logo2.png" class="logo" alt="Logo">
   </div>
   <div class="container justify-content-center d-flex">
-    <form style="padding-top: 2em;">
+    <form style="padding-top: 2em;" action="insertar-usuario.php" method="POST">
       <div class="mb-3">
-        <input type="email" class="form-control input-ingreso" id="Email-crear" placeholder="Email">
+        <input type="email" class="form-control input-ingreso" id="Email-crear" placeholder="Email" name="email">
       </div>
       <div class="mb-3">
-        <input type="password" class="form-control input-ingreso" id="contrasenia-crear" placeholder="Contraseña">
+        <input type="password" class="form-control input-ingreso" id="contrasenia-crear" placeholder="Contraseña" name="password">
       </div>
       <div class="mb-3">
-        <input type="text" class="form-control input-ingreso" id="nombre" placeholder="Nombre">
+        <input type="text" class="form-control input-ingreso" id="nombre" placeholder="Nombre" name="first_name">
       </div>
       <div class="mb-3">
-        <input type="text" class="form-control input-ingreso" id="apellido" placeholder="Apellido">
+        <input type="text" class="form-control input-ingreso" id="apellido" placeholder="Apellido" name="last_name">
       </div>
       <div>
         <button type="submit" class="btn btn-primary btn-ingresar">

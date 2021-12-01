@@ -61,7 +61,7 @@ $result = $sql->fetchAll(PDO::FETCH_ASSOC);
                                         <p class="card-text">Email: <?= $row['email'] ?></p>
                                         <p class="card-text">Rol: <?= $row['role'] ?></p>
                                         <form action="usuario-eliminar.php" method="POST" style="padding-top: 2em;">
-                                            <input type="hidden" name="markerId" value="<?= $row['id'] ?>">
+                                            <input type="hidden" name="usuarioId" value="<?= $row['id'] ?>">
                                             <button type="submit" class="btn btn-primary" style="background-color: #e77a58; border: #e77a58;">
                                                 <span class="letra-botones">
                                                     Eliminar

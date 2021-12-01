@@ -6,7 +6,7 @@ require_once('connection.php');
 
 $errors = [];
 
-if (!isset($_POST['markerId']) || empty($_POST['markerId'])) {
+if (!isset($_POST['usuarioId']) || empty($_POST['usuarioId'])) {
     $errors[] = 'ID requerido';
 }
 
@@ -15,19 +15,18 @@ if (count($errors) > 0) {
     exit();
 }
 
-$markerId = $_POST['markerId'];
+$usuarioID = $_POST['usuarioId'];
 
 try {
 
-    $dbMarker = db();
-    $sql = $dbMarker->prepare('
-    DELETE FROM markers WHERE id = ?
+    $sql = db()->prepare('
+    DELETE FROM users WHERE id = ?
   ');
     $execute = $sql->execute([
-        $markerId
+        $usuarioID
     ]);
 
-    header('Location: /usuariosAdmin.php?message=Reporte eliminado correctamente');
+    header('Location: /usuariosAdmin.php?message=Usuario eliminado correctamente');
     exit();
 } catch (PDOException $e) {
     echo $e->getMessage();
