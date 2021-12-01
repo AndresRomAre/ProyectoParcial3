@@ -7,6 +7,11 @@ if (!isset($_SESSION['userId']) && empty($_SESSION['userId'])) {
     exit();
 }
 
+if (isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] !== 'administrador') {
+    header('Location: /index.php');
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
