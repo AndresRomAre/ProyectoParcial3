@@ -18,7 +18,7 @@ error_reporting(E_ALL);
 
 require_once('connection.php');
 
-$query = 'SELECT m.id as markerid, m.latitude, m.longitude, m.location, m.type, m.user_id, r.descripcion, r.notes, r.image ';
+$query = 'SELECT m.id as markerid, m.latitude, m.longitude, m.location, m.type, m.user_id, r.descripcion, r.notes, r.image, r.id as report_id ';
 $query .= 'FROM markers AS m ';
 $query .= 'LEFT JOIN reports AS r ON r.marker_id = m.id ';
 $search = '';
@@ -66,19 +66,16 @@ $result = $sql->fetch(PDO::FETCH_ASSOC);
           <?php }
           ?>
           <div class="card-body">
+            <?php if (isset($_GET['message'])) : ?>
+                <div class="alert alert-info alert-dismissible fade show rounded-0 mb-0 shadow" role="alert">
+                  <?= $_GET['message'] ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
             <form action="reports-edit.php" enctype="multipart/form-data" method="POST">
-              <div class="mb-3">
-                <label>
-                  id usuario
-                </label>
-                <input id="idUsuarioInput" name="idUsuarioInput" type="text" class="form-control" readonly value="<?= $result['user_id'] ?>">
-              </div>
-              <div class="mb-3">
-                <label>
-                  id marcador
-                </label>
-                <input id="idInput" name="idInput" type="text" class="form-control" readonly value="<?= $result['markerid'] ?>">
-              </div>
+              <input name="idUsuarioInput" type="hidden" class="form-control" readonly value="<?= $result['report_id'] ?>">
+              <input name="idInput" type="hidden" class="form-control" readonly value="<?= $result['markerid'] ?>">
+              <input name="imageNameInput" type="hidden" class="form-control" readonly value="<?= $result['image'] ?>">
               <div class="mb-3">
                 <label>
                   Latitud

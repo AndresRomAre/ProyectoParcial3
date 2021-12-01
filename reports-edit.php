@@ -14,12 +14,13 @@ if (!isset($_POST['locationInput']) || empty($_POST['locationInput'])) {
   $errors[] = 'Alcaldía requerida';
 }
 
+$id = $_POST['idInput'];
+
 if (count($errors) > 0) {
-  header('Location: /report.php?message=' . $errors[0]);
+  header('Location: /reporteAdmin.php?id=' . $id . '&message=' . $errors[0]);
   exit();
 }
 
-$id = $_POST['idInput'];
 $type = $_POST['typeInput'];
 $location = $_POST['locationInput'];
 $notes = null;
@@ -38,6 +39,10 @@ if (isset($_POST['descripcionInput']) && !empty($_POST['descripcionInput'])) {
   $descripcion = $_POST['descripcionInput'];
 }
 
+if (isset($_POST['imageNameInput']) && !empty($_POST['imageNameInput'])) {
+  $image = $_POST['imageNameInput'];
+}
+
 if (!empty($_FILES['imageInput']['tmp_name'])) {
 
   $hashName = null;
@@ -52,7 +57,7 @@ if (!empty($_FILES['imageInput']['tmp_name'])) {
   ];
 
   if (!in_array($extension, $allowedExt)) {
-    header('Location: /report.php?message=Archivo(s) no valido(s)');
+    header('Location: /reporteAdmin.php?id=' . $id . '&message=Archivo(s) no valido(s)');
     exit();
   }
 
@@ -65,22 +70,22 @@ try {
 
   $dbMarker = db();
   $sql = $dbMarker->prepare('
-    UPDATE markers SET location = ? WHERE id = ?
+    UPDATE markers SET location = ?, latitude = ?, longitude = ? WHERE id = ?
   ');
   $execute = $sql->execute([
-    $location, $userId
+    $location, $latitud, $latitud, $id
   ]);
 
   $sql = db()->prepare('
-      UPDATE reports SET notes = ?, image = ?, descripcion = ?, latitude = ?, longitude = ?, WHERE id = ? 
+      UPDATE reports SET notes = ?, image = ?, descripcion = ? WHERE id = ? 
     ');
 
   $execute = $sql->execute([
-    $notes, $image, $descripcion, $latitud, $longitud, $id
+    $notes, $image, $descripcion, $userId
   ]);
 
 
-  header('Location: /report.php?message=Reporte guardado correctamente');
+  header('Location: /reporteAdmin.php?id=' . $id . '&message=Reporte guardado correctamente');
   exit();
 } catch (PDOException $e) {
   echo $e->getMessage();
