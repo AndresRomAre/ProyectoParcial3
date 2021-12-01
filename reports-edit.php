@@ -6,17 +6,6 @@ require_once('connection.php');
 
 $errors = [];
 
-if (!isset($_POST['latitudeInput']) || empty($_POST['latitudeInput'])) {
-  $errors[] = 'Latitud requerida';
-}
-
-if (!isset($_POST['longitudeInput']) || empty($_POST['longitudeInput'])) {
-  $errors[] = 'Longitud requerida';
-}
-
-if (!isset($_POST['longitudeInput']) || empty($_POST['longitudeInput'])) {
-  $errors[] = 'Longitud requerida';
-}
 
 if (!isset($_POST['typeInput']) || empty($_POST['typeInput'])) {
   $errors[] = 'Tipo requerido';
@@ -31,8 +20,6 @@ if (count($errors) > 0) {
   exit();
 }
 
-$latitude = $_POST['latitudeInput'];
-$longitude = $_POST['longitudeInput'];
 $type = $_POST['typeInput'];
 $location = $_POST['locationInput'];
 $notes = null;
@@ -76,10 +63,10 @@ try {
 
   $dbMarker = db();
   $sql = $dbMarker->prepare('
-    UPDATE markers SET latitude = ?, longitude = ? WHERE id = ?
+    UPDATE markers SET location = ? WHERE id = ?
   ');
   $execute = $sql->execute([
-    $type, $latitude, $longitude, $location, $userId
+    $location, $userId
   ]);
 
   if ($notes != null || $image != null || $descripcion != null) {

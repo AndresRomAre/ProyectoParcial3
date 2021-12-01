@@ -66,7 +66,7 @@ $result = $sql->fetchAll(PDO::FETCH_ASSOC);
                 if ($result) {
                     foreach ($result as $row) {
                 ?>
-                        <a href="Reporte.php?id=<?= $row['markerid'] ?>" class="card mb-3 w-100" style="margin-top: 2em; text-decoration: none;">
+                        <a href="reporteAdmin.php?id=<?= $row['markerid'] ?>" class="card mb-3 w-100" style="margin-top: 2em; text-decoration: none;">
                             <div class="row g-0">
                                 <?php if ($row['image']) { ?>
                                     <div class="col-md-4">
