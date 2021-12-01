@@ -6,7 +6,6 @@ require_once('connection.php');
 
 $errors = [];
 
-
 if (!isset($_POST['typeInput']) || empty($_POST['typeInput'])) {
   $errors[] = 'Tipo requerido';
 }
@@ -20,12 +19,15 @@ if (count($errors) > 0) {
   exit();
 }
 
+$id = $_POST['idInput'];
 $type = $_POST['typeInput'];
 $location = $_POST['locationInput'];
 $notes = null;
 $image = null;
 $descripcion = null;
-$userId = 1;
+$userId = $_POST['idUsuarioInput'];
+$latitud = $_POST['latitudeInput'];
+$longitud = $_POST['longitudeInput'];
 
 
 if (isset($_POST['notesInput']) && !empty($_POST['notesInput'])) {
@@ -69,15 +71,14 @@ try {
     $location, $userId
   ]);
 
-  if ($notes != null || $image != null || $descripcion != null) {
-    $sql = db()->prepare('
-      UPDATE reports SET latitude = ?, longitude = ? WHERE id = ? 
+  $sql = db()->prepare('
+      UPDATE reports SET notes = ?, image = ?, descripcion = ?, latitude = ?, longitude = ?, WHERE id = ? 
     ');
 
-    $execute = $sql->execute([
-      $notes, $image, $markerId, $descripcion
-    ]);
-  }
+  $execute = $sql->execute([
+    $notes, $image, $descripcion, $latitud, $longitud, $id
+  ]);
+
 
   header('Location: /report.php?message=Reporte guardado correctamente');
   exit();

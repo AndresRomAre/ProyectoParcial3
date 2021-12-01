@@ -1,0 +1,152 @@
+body {
+  background-color: #8da4cd;
+}
+
+h1 {
+  margin-top: 0.5em;
+}
+
+.tipografia {
+  font-family: "museo-slab-500";
+  color: white;
+  font-size: 4em;
+}
+
+.logo {
+  height: 9em;
+  width: auto;
+  padding-top: 0.5em;
+  margin-bottom: 3em;
+}
+
+.input-ingreso {
+  border-radius: 2em;
+  background-color: #839bc4;
+  outline-color: #c6d1e6;
+  color: white;
+  width: 18em;
+}
+
+.input-ingreso::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+.btn-ingresar {
+  background-color: #576a98 !important;
+  border-radius: 2em;
+  border: #576a98 !important;
+  width: 18em;
+  height: 3em;
+}
+
+.btn-crear {
+  background-color: #e77a58 !important;
+  border-radius: 2em;
+  border: #e77a58 !important;
+  width: 18em;
+  height: 3em;
+  margin-top: 1em;
+}
+
+.letra-botones {
+  font-family: Arial;
+  font-weight: bold;
+  color: white;
+  font-size: 1.5em;
+}
+
+.letraGrande {
+  font-weight: bold;
+  font-size: 140%;
+  color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+#textoAnimacion {
+  overflow: hidden;
+  opacity: 0;
+  animation: texto 1s linear 3s forwards;
+}
+
+@keyframes texto {
+  100% {
+    opacity: 1;
+  }
+}
+
+#logoAnimacion {
+  overflow: hidden;
+  opacity: 0;
+  animation: logo 1s linear 3s forwards;
+}
+
+@keyframes logo {
+  100% {
+    opacity: 1;
+  }
+}
+
+#mapaAnimacion {
+  overflow: hidden;
+  opacity: 0;
+  animation: mapa 1s linear 5s forwards;
+}
+
+@keyframes mapa {
+  100% {
+    opacity: 1;
+  }
+}
+
+#navegaAnimacion {
+  overflow: hidden;
+  opacity: 0;
+  animation: navega 1s linear 7s forwards;
+}
+
+@keyframes navega {
+  100% {
+    opacity: 1;
+  }
+}
+
+#reporteAnimacion {
+  overflow: hidden;
+  opacity: 0;
+  animation: reporte 1s linear 9s forwards;
+}
+
+@keyframes reporte {
+  100% {
+    opacity: 1;
+  }
+}
+
+#comparteAnimacion {
+  overflow: hidden;
+  opacity: 0;
+  animation: comparte 1s linear 11s forwards;
+}
+
+@keyframes comparte {
+  100% {
+    opacity: 1;
+  }
+}
+
+#botonAnimacion {
+  overflow: hidden;
+  opacity: 0;
+  animation: boton 1s linear 13s forwards;
+}
+
+@keyframes boton {
+  100% {
+    opacity: 1;
+  }
+}

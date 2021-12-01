@@ -72,6 +72,15 @@ if (!isset($_SESSION['userId']) && empty($_SESSION['userId'])) {
                 <option value="Secuestro">
                   Secuestro
                 </option>
+                <option value="Agresion sexual">
+                  Agresión sexual
+                </option>
+                <option value="Poco mantenimiento">
+                  Poco mantenimiento
+                </option>
+                <option value="Agresion fisica">
+                  Agresión física
+                </option>
               </select>
             </div>
             <div class="mb-3">

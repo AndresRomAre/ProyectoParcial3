@@ -2,6 +2,29 @@
 
 session_start();
 
+if (!isset($_SESSION['userId']) && empty($_SESSION['userId'])) {
+    header('Location: /index.php?message=Debes iniciar sesión');
+    exit();
+}
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once('connection.php');
+
+$id_usuario = $_SESSION['userId'];
+
+$dbMarker = db();
+$sql = $dbMarker->prepare('
+    SELECT email, first_name, last_name FROM users WHERE id = ?
+  ');
+$sql->execute([
+    $id_usuario
+]);
+
+$result = $sql->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -39,30 +62,20 @@ session_start();
                     <form style="padding-top: 0.5em;">
                         <div class="row align-items-center d-flex justify-content-center">
                             <div class="mb-3 col-md-6">
-                                <input readonly type="email" class="form-control input-ingreso" id="Email-crear" placeholder="Email">
+                                <input readonly type="email" class="form-control input-ingreso" id="Email-crear" placeholder="<?= $result['email'] ?>">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <input readonly type="password" class="form-control input-ingreso" id="contrasenia-crear" placeholder="Contraseña">
+                                <input readonly type="password" class="form-control input-ingreso" id="contrasenia-crear" placeholder="********">
                             </div>
                         </div>
 
                         <div class="row align-items-center d-flex justify-content-center">
                             <div class="mb-3 col-md-6">
-                                <input readonly type="text" class="form-control input-ingreso" id="nombre" placeholder="Nombre">
+                                <input readonly type="text" class="form-control input-ingreso" id="nombre" placeholder="<?= $result['first_name'] ?>">
                             </div>
                             <div class="mb-3 col-md-6">
-                                <input readonly type="text" class="form-control input-ingreso" id="apellido" placeholder="Apellido">
+                                <input readonly type="text" class="form-control input-ingreso" id="apellido" placeholder="<?= $result['last_name'] ?>">
                             </div>
-                        </div>
-
-
-                        <div>
-                            <a class="btn btn-primary btn-azul" onclick="window.location.href='miCuentaEditar.php'">
-                                <span class="letra-botones">
-                                    Editar
-                                </span>
-                            </a>
-
                         </div>
                         <div>
                             <a href="cerrar-sesion.php" class="btn btn-primary btn-naranja">

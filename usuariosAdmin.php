@@ -7,6 +7,24 @@ if (!isset($_SESSION['userId']) && empty($_SESSION['userId'])) {
     exit();
 }
 
+if (isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] !== 'administrador') {
+    header('Location: /home.php');
+    exit();
+}
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once('connection.php');
+
+$sql = db()->prepare('
+    SELECT id, email, first_name, last_name, role FROM users
+  ');
+$sql->execute(['']);
+
+$result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -30,15 +48,40 @@ if (!isset($_SESSION['userId']) && empty($_SESSION['userId'])) {
         <?php include("barraNavSup.php"); ?>
         <div id="contenido">
             <div class="align-items-center d-flex flex-column h-100">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+                <?php
+                if ($result) {
+                    foreach ($result as $row) {
+                ?>
+                        <a href="usuarioAdmin.php?id=<?= $row['id'] ?>" class="card mb-3 w-100" style="margin-top: 2em; text-decoration: none;">
+                            <div class="row g-0">
+                                <div class="col-md">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= $row['first_name'] ?> <?= $row['last_name'] ?></h5>
+                                        <p class="card-text">Id: <?= $row['id'] ?></p>
+                                        <p class="card-text">Email: <?= $row['email'] ?></p>
+                                        <p class="card-text">Rol: <?= $row['role'] ?></p>
+                                        <form action="usuario-eliminar.php" method="POST" style="padding-top: 2em;">
+                                            <input type="hidden" name="markerId" value="<?= $row['id'] ?>">
+                                            <button type="submit" class="btn btn-primary" style="background-color: #e77a58; border: #e77a58;">
+                                                <span class="letra-botones">
+                                                    Eliminar
+                                                </span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    <?php
+                    }
+                } else {
+                    ?>
+                    <div class="col-12 text-center">
+                        <p>No hay registros.</p>
                     </div>
-                </div>
-
+                <?php
+                }
+                ?>
             </div>
         </div>
         <?php include("barraNavInf.php"); ?>

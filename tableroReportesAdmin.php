@@ -8,7 +8,7 @@ if (!isset($_SESSION['userId']) && empty($_SESSION['userId'])) {
 }
 
 if (isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] !== 'administrador') {
-    header('Location: /index.php');
+    header('Location: /home.php');
     exit();
 }
 

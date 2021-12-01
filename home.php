@@ -2,7 +2,7 @@
 
 session_start();
 
-if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])) {
+if (!isset($_SESSION['userId']) && empty($_SESSION['userId'])) {
   header('Location: /index.php?message=Debes iniciar sesión');
   exit();
 }
@@ -28,37 +28,81 @@ if(!isset($_SESSION['userId']) && empty($_SESSION['userId'])) {
 <body>
   <div class="d-flex flex-column h-100">
     <?php include("barraNavSup.php"); ?>
-    <div id="contenido">
-      <div class="align-items-center d-flex flex-column h-100 justify-content-center">
-        <div class="container justify-content-center d-flex" style="margin-bottom: -1em; margin-top: -2em;">
-          <img src="assets/Imagenes/marcar.png" class="imagen" style="height: 12em; width: 12em;" alt="Dibujo mapa">
-        </div>
-        <div class="container justify-content-center d-flex">
-          <button type="submit" class="btn btn-primary btn-azul">
-            <span class="letra-botones">
-              Navegar
-            </span>
-          </button>
-        </div>
-        <div class="container justify-content-center d-flex">
-          <button type="submit" class="btn btn-primary btn-azul">
-            <span class="letra-botones">
-              Marcar
-            </span>
-          </button>
-        </div>
-        <div class="container justify-content-center d-flex" style="margin-top: 0em;">
-          <img src="assets/Imagenes/Reportes.png" class="imagen" style="width: 7em; height: auto; margin-top: 2em;" alt="Dibujo reporte">
-        </div>
-        <div class="container justify-content-center d-flex">
-          <button type="submit" class="btn btn-primary btn-azul">
-            <span class="letra-botones">
-              Reportes
-            </span>
-          </button>
+
+    <?php if (isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] !== 'administrador') { ?>
+      <div id="contenido">
+        <div class="align-items-center d-flex flex-column h-100 justify-content-center">
+          <div class="container justify-content-center d-flex" style="margin-bottom: -1em; margin-top: -2em;">
+            <img src="assets/Imagenes/marcar.png" class="imagen" style="height: 12em; width: 12em;" alt="Dibujo mapa">
+          </div>
+          <div class="container justify-content-center d-flex">
+            <a href="reports.php">
+              <button type="submit" class="btn btn-primary btn-azul">
+                <span class="letra-botones">
+                  Navegar
+                </span>
+              </button>
+            </a>
+          </div>
+          <div class="container justify-content-center d-flex">
+            <a href="report.php">
+              <button type="submit" class="btn btn-primary btn-azul">
+                <span class="letra-botones">
+                  Marcar
+                </span>
+              </button>
+            </a>
+
+          </div>
+          <div class="container justify-content-center d-flex" style="margin-top: 0em;">
+            <img src="assets/Imagenes/Reportes.png" class="imagen" style="width: 7em; height: auto; margin-top: 2em;" alt="Dibujo reporte">
+          </div>
+          <div class="container justify-content-center d-flex">
+            <a href="tableroReportes.php">
+              <button type="submit" class="btn btn-primary btn-azul">
+                <span class="letra-botones">
+                  Reportes
+                </span>
+              </button>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    <?php } else { ?>
+      <div id="contenido">
+        <div class="align-items-center d-flex flex-column h-100 justify-content-center">
+          <div class="container justify-content-center d-flex" style="margin-bottom: -1em; margin-top: -2em;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="6em" height="auto" fill="#1B1F2D" class="bi bi-person-fill" viewBox="0 0 16 16">
+              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+            </svg>
+          </div>
+          <div class="container justify-content-center d-flex">
+            <a href="usuariosAdmin.php">
+              <button type="submit" class="btn btn-primary btn-azul">
+                <span class="letra-botones">
+                  Editar usuarios
+                </span>
+              </button>
+            </a>
+          </div>
+          <div class="container justify-content-center d-flex" style="margin-top: 0em;">
+            <img src="assets/Imagenes/Reportes.png" class="imagen" style="width: 7em; height: auto; margin-top: 2em;" alt="Dibujo reporte">
+          </div>
+          <div class="container justify-content-center d-flex">
+            <a href="tableroReportesAdmin.php">
+              <button type="submit" class="btn btn-primary btn-azul">
+                <span class="letra-botones">
+                  Editar reportes
+                </span>
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    <?php }
+    ?>
+
+
     <?php include("barraNavInf.php"); ?>
   </div>
 

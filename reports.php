@@ -1,11 +1,11 @@
 <?php
 
+session_start();
+
 if (!isset($_SESSION['userId']) && empty($_SESSION['userId'])) {
   header('Location: /index.php?message=Debes iniciar sesión');
   exit();
 }
-
-session_start();
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -52,47 +52,7 @@ $json = json_encode($result);
 
 <body>
   <div class="d-flex flex-column h-100">
-    <nav id="navTop" class="navbar navbar-light bg-light shadow">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Reportes</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-            </ul>
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <?php include("barraNavSup.php"); ?>
     <?php if (isset($_GET['message'])) : ?>
       <div class="alert alert-info alert-dismissible fade show rounded-0 mb-0 shadow" role="alert">
         <?= $_GET['message'] ?>
@@ -138,19 +98,7 @@ $json = json_encode($result);
     <!-- >> elemento con estilo height: 100% -->
     <div id="map"></div>
     <!-- elemento con estilo height: 100% << -->
-    <div id="navTabs" class="d-flex align-items-center">
-      <ul class="nav nav-fill w-100">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="report.php">Nuevo reporte</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="reports.php">Reportes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Otro link</a>
-        </li>
-      </ul>
-    </div>
+    <?php include("barraNavInf.php"); ?>
   </div>
   <div id="reportModal" class="modal fade" tabindex="-1">
     <div class="modal-dialog">
@@ -186,6 +134,15 @@ $json = json_encode($result);
                 </option>
                 <option value="Secuestro">
                   Secuestro
+                </option>
+                <option value="Agresion sexual">
+                  Agresión sexual
+                </option>
+                <option value="Poco mantenimiento">
+                  Poco mantenimiento
+                </option>
+                <option value="Agresion fisica">
+                  Agresión física
                 </option>
               </select>
             </div>

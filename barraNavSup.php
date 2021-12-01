@@ -11,16 +11,16 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Menú</a>
+                        <a class="nav-link active" aria-current="page" href="home.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="miCuenta.php">Mi cuenta</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Navegar</a>
+                        <a class="nav-link active" aria-current="page" href="reports.php">Navegar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Marcar</a>
+                        <a class="nav-link active" aria-current="page" href="report.php">Marcar</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="tableroReportes.php">Reportes</a>
@@ -31,12 +31,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="cerrar-sesion.php">Cerrar sesión</a>
                     </li>
-
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
             </div>
         </div>
     </div>

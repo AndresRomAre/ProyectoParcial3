@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 
@@ -38,14 +38,8 @@ try {
     $_SESSION['userId'] = $result['id'];
     $_SESSION['role'] = $result['role'];
 
-    if ($result['role'] == 'administrador') {
-      header('Location: /tableroReportesAdmin.php');
-      exit();
-    }
-
     header('Location: /home.php');
     exit();
-
   } else {
     header('Location: /index.php?message=Credenciales incorrectas');
     exit();

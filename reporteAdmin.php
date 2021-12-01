@@ -7,13 +7,18 @@ if (!isset($_SESSION['userId']) && empty($_SESSION['userId'])) {
   exit();
 }
 
+if (isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] !== 'administrador') {
+  header('Location: /home.php');
+  exit();
+}
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once('connection.php');
 
-$query = 'SELECT m.id as markerid, m.latitude, m.longitude, m.location, m.type, r.descripcion, r.notes, r.image ';
+$query = 'SELECT m.id as markerid, m.latitude, m.longitude, m.location, m.type, m.user_id, r.descripcion, r.notes, r.image ';
 $query .= 'FROM markers AS m ';
 $query .= 'LEFT JOIN reports AS r ON r.marker_id = m.id ';
 $search = '';
@@ -64,15 +69,27 @@ $result = $sql->fetch(PDO::FETCH_ASSOC);
             <form action="reports-edit.php" enctype="multipart/form-data" method="POST">
               <div class="mb-3">
                 <label>
+                  id usuario
+                </label>
+                <input id="idUsuarioInput" name="idUsuarioInput" type="text" class="form-control" readonly value="<?= $result['user_id'] ?>">
+              </div>
+              <div class="mb-3">
+                <label>
+                  id marcador
+                </label>
+                <input id="idInput" name="idInput" type="text" class="form-control" readonly value="<?= $result['markerid'] ?>">
+              </div>
+              <div class="mb-3">
+                <label>
                   Latitud
                 </label>
-                <input id="latitudeInput" name="latitudeInput" type="text" class="form-control" readonly>
+                <input id="latitudeInput" name="latitudeInput" type="text" class="form-control" value="<?= $result['latitude'] ?>">
               </div>
               <div class="mb-3">
                 <label>
                   Longitud
                 </label>
-                <input id="longitudeInput" name="longitudeInput" type="text" class="form-control" readonly>
+                <input id="longitudeInput" name="longitudeInput" type="text" class="form-control" value="<?= $result['longitude'] ?>">
               </div>
               <div class="mb-3">
                 <label>
@@ -80,7 +97,7 @@ $result = $sql->fetch(PDO::FETCH_ASSOC);
                 </label>
                 <select name="typeInput" class="form-select">
                   <option value="<?= $result['type'] ?>">
-                  <?= $result['type'] ?>
+                    <?= $result['type'] ?>
                   </option>
                   <option value="Asalto">
                     Asalto
@@ -130,7 +147,7 @@ $result = $sql->fetch(PDO::FETCH_ASSOC);
                 <label>
                   Notas adicionales
                 </label>
-                <textarea id="notesInput" name="notesInput" class="form-control" rows="3"></textarea>
+                <textarea id="notesInput" name="notesInput" class="form-control" rows="3"><?= $result['notes'] ?></textarea>
               </div>
               <button type="submit" class="btn btn-success">Guardar</button>
             </form>

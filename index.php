@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 
@@ -52,14 +52,11 @@ session_start();
       <div>
         <button class="btn btn-primary btn-crear">
           <span class="letra-botones">
-            <a href="crearCuenta.html">
+            <a href="crearCuenta.php">
               Crear cuenta
             </a>
           </span>
         </button>
-      </div>
-      <div class="justify-content-center d-flex" style="font-family: Arial; font-weight: bold; color: white; margin-top: 1em;">
-        Entrar sin cuenta
       </div>
 
     </form>
