@@ -12,6 +12,33 @@ if (isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] !
     exit();
 }
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once('connection.php');
+
+$query = 'SELECT m.id as markerid, m.latitude, m.longitude, m.location, m.type, r.descripcion, r.notes, r.image ';
+$query .= 'FROM markers AS m ';
+$query .= 'LEFT JOIN reports AS r ON r.marker_id = m.id ';
+$search = '';
+
+if (isset($_GET['location'])) {
+    $search = $_GET['location'];
+    $query .= "WHERE m.location = ?";
+}
+
+$query .= 'ORDER BY inserted_at ASC';
+
+$sql = db()->prepare($query);
+if (isset($_GET['location'])) {
+    $sql->execute([$search]);
+} else {
+    $sql->execute();
+}
+
+$result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -35,87 +62,45 @@ if (isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] !
         <?php include("barraNavSup.php"); ?>
         <div id="contenido">
             <div class="align-items-center d-flex flex-column h-100">
-                <div class="card mb-3" style="margin-top: 2em; max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="..." class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <form style="padding-top: 2em;">
-                                    <button type="submit" class="btn btn-primary" style="background-color: #e77a58; border: #e77a58;">
-                                        <span class="letra-botones">
-                                            Eliminar
-                                        </span>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-3" style="margin-top: 2em; max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="..." class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <form style="padding-top: 2em;">
-                                    <button type="submit" class="btn btn-primary" style="background-color: #e77a58; border: #e77a58;">
-                                        <span class="letra-botones">
-                                            Eliminar
-                                        </span>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-3" style="margin-top: 2em; max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="..." class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <form style="padding-top: 2em;">
-                                    <button type="submit" class="btn btn-primary" style="background-color: #e77a58; border: #e77a58;">
-                                        <span class="letra-botones">
-                                            Eliminar
-                                        </span>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-3" style="margin-top: 2em; max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="..." class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <form style="padding-top: 2em;">
-                                    <button type="submit" class="btn btn-primary" style="background-color: #e77a58; border: #e77a58;">
-                                        <span class="letra-botones">
-                                            Eliminar
-                                        </span>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                if ($result) {
+                    foreach ($result as $row) {
+                ?>
+                        <a href="Reporte.php?id=<?= $row['markerid'] ?>" class="card mb-3 w-100" style="margin-top: 2em; text-decoration: none;">
+                            <div class="row g-0">
+                                <?php if ($row['image']) { ?>
+                                    <div class="col-md-4">
+                                        <img src="<?= 'assets/Img/' . $row['image'] ?>" class="img-fluid rounded-start">
+                                    </div>
+                                <?php }
+                                ?>
 
+                                <div class="col-md">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= $row['type'] ?></h5>
+                                        <p class="card-text"><?= $row['descripcion'] ?></p>
+                                        <form action="reporte-eliminar.php" method="POST" style="padding-top: 2em;">
+                                            <input type="hidden" name="markerId" value="<?= $row['markerid'] ?>">
+                                            <button type="submit" class="btn btn-primary" style="background-color: #e77a58; border: #e77a58;">
+                                                <span class="letra-botones">
+                                                    Eliminar
+                                                </span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    <?php
+                    }
+                } else {
+                    ?>
+                    <div class="col-12 text-center">
+                        <p>No hay registros.</p>
+                    </div>
+                <?php
+                }
+                ?>
             </div>
         </div>
         <?php include("barraNavInf.php"); ?>

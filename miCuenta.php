@@ -65,7 +65,7 @@ session_start();
 
                         </div>
                         <div>
-                            <a type="submit" class="btn btn-primary btn-naranja">
+                            <a href="cerrar-sesion.php" class="btn btn-primary btn-naranja">
                                 <span class="letra-botones">
                                     Salir
                                 </span>

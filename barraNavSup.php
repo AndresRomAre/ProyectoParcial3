@@ -29,7 +29,7 @@
                         <a class="nav-link active" aria-current="page" href="#">Cómo funciona</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Cerrar sesión</a>
+                        <a class="nav-link active" aria-current="page" href="cerrar-sesion.php">Cerrar sesión</a>
                     </li>
 
                 </ul>
